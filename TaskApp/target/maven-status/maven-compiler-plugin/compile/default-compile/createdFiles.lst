@@ -1,5 +1,7 @@
 com\example\DatabaseUtils.class
 com\example\MainApp.class
-com\example\TaskPage$TaskCell.class
-com\example\TaskPage$TaskItem.class
+com\example\TaskPageController$1.class
+com\example\TaskPageController$TaskItem.class
+com\example\MainAppController.class
+com\example\TaskPageController.class
 com\example\TaskPage.class

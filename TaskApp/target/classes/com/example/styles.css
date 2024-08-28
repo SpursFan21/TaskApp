@@ -1,0 +1,68 @@
+/* Set the background color of the VBox layout */
+#root {
+    -fx-background-color: purple; /* JavaFX specific property */
+    background-color: purple; /* Standard property for compatibility */
+}
+
+/* Style the text fields */
+.text-field {
+    -fx-background-color: #ffffff;
+    background-color: #ffffff; /* Standard property for compatibility */
+    -fx-text-fill: black;
+    -fx-pref-width: 300px; /* Set preferred width */
+    -fx-pref-height: 40px; /* Set preferred height */
+    -fx-font-size: 14px; /* JavaFX-specific font size */
+    font-size: 14px; /* Standard property for compatibility */
+    -fx-padding: 5px; /* Add padding inside */
+    padding: 5px;
+    -fx-margin: 10px; /* Add margin around */
+    margin: 10px;
+}
+
+/* Style the password fields */
+.password-field {
+    -fx-background-color: #ffffff;
+    background-color: #ffffff; /* Standard property for compatibility */
+    -fx-text-fill: black;
+    -fx-pref-width: 300px; /* Set preferred width */
+    -fx-pref-height: 40px; /* Set preferred height */
+    -fx-font-size: 14px; /* JavaFX-specific font size */
+    font-size: 14px; /* Standard property for compatibility */
+    -fx-padding: 5px; /* Add padding inside */
+    -fx-margin: 10px; /* Add margin around */
+    padding: 5px;
+    margin: 10px;
+}
+
+/* Style the buttons */
+.button {
+    -fx-background-color: #00bfff;
+    background-color: #00bfff; /* Standard property for compatibility */
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    font-weight: bold;
+    -fx-border-radius: 5px;
+    border-radius: 5;
+    -fx-background-radius: 5px;
+    -fx-pref-width: 150px; /* Set preferred width */
+    -fx-pref-height: 40px; /* Set preferred height */
+    -fx-font-size: 16px; /* JavaFX-specific font size */
+    font-size: 16px; /* Standard property for compatibility */
+    -fx-padding: 10px; /* Add padding inside */
+    padding: 10px;
+    -fx-margin: 10px; /* Add margin around */
+    margin: 10px;
+}
+
+/* Button hover effect */
+.button:hover {
+    -fx-background-color: #0099cc;
+    background-color: #0099cc; /* Standard property for compatibility */
+}
+
+/* VBox spacing and padding */
+#root {
+    -fx-spacing: 15px;
+    -fx-padding: 20px; /* Add padding around VBox */
+    padding: 20px;
+}

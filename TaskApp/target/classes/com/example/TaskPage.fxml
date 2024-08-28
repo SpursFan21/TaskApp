@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="layout" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.TaskPageController"
+      spacing="10" alignment="CENTER" stylesheets="@styles.css">
+    
+    <Button fx:id="logOutButton" text="Log Out"/>
+    <TextField fx:id="taskField" promptText="Enter a new task"/>
+    
+    <ComboBox fx:id="statusComboBox"/>
+    
+    <Button fx:id="addButton" text="Add Task"/>
+    <Button fx:id="removeButton" text="Remove Task"/>
+    <ListView fx:id="taskListView"/>
+    
+</VBox>
