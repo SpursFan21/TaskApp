@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,18 +44,22 @@ public class MainApp extends Application {
 
     private void handleLogin(String username, String password, Stage loginStage) {
         try (Connection conn = DatabaseUtils.getConnection()) {
-            String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            String query = "SELECT * FROM users WHERE username = ?";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
-                stmt.setString(2, password); // In a real app, use hashed passwords
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
-                        System.out.println("Login successful!");
-                        // Open the Task Page
-                        TaskPage taskPage = new TaskPage(username);
-                        Stage taskStage = new Stage();
-                        taskPage.show(taskStage);
-                        loginStage.close(); // Close the login stage
+                        String hashedPassword = rs.getString("password");
+                        if (BCrypt.checkpw(password, hashedPassword)) {
+                            System.out.println("Login successful!");
+                            // Open the Task Page
+                            TaskPage taskPage = new TaskPage(username);
+                            Stage taskStage = new Stage();
+                            taskPage.show(taskStage);
+                            loginStage.close(); // Close the login stage
+                        } else {
+                            System.out.println("Invalid username or password.");
+                        }
                     } else {
                         System.out.println("Invalid username or password.");
                     }
@@ -70,7 +75,9 @@ public class MainApp extends Application {
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
-                stmt.setString(2, password); // In a real app, use hashed passwords
+                // Hash the password before storing it
+                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+                stmt.setString(2, hashedPassword);
                 int rowsAffected = stmt.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Registration successful!");
