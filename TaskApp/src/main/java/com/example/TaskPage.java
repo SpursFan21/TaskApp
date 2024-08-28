@@ -32,6 +32,7 @@ public class TaskPage {
 
         Button addButton = new Button("Add Task");
         Button removeButton = new Button("Remove Task");
+        Button logOutButton = new Button("Log Out");
 
         taskListView = new ListView<>();
         taskListView.setCellFactory(param -> new TaskCell(taskListView));
@@ -59,8 +60,14 @@ public class TaskPage {
             }
         });
 
+        logOutButton.setOnAction(e -> {
+            // Close current stage and return to MainApp
+            primaryStage.close();
+            MainApp.show();
+        });
+
         // Layout
-        VBox layout = new VBox(10, taskField, statusComboBox, addButton, removeButton, taskListView);
+        VBox layout = new VBox(10, logOutButton, taskField, statusComboBox, addButton, removeButton, taskListView);
         layout.setStyle("-fx-padding: 20;");
 
         // Scene and Stage

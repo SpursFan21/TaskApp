@@ -70,7 +70,6 @@ public class MainApp extends Application {
         }
     }
     
-
     private void handleRegistration(String username, String password) {
         try (Connection conn = DatabaseUtils.getConnection()) {
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -90,6 +89,9 @@ public class MainApp extends Application {
         }
     }
     
+    public static void show() {
+        launch(); // This will start the JavaFX application
+    }
 
     public static void main(String[] args) {
         launch(args);
