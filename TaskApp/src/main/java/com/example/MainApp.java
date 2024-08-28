@@ -41,7 +41,7 @@ public class MainApp extends Application {
         primaryStage.show();
     }
 
-    private void handleLogin(String username, String password, Stage primaryStage) {
+    private void handleLogin(String username, String password, Stage loginStage) {
         try (Connection conn = DatabaseUtils.getConnection()) {
             String query = "SELECT * FROM users WHERE username = ? AND password = ?";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -51,8 +51,10 @@ public class MainApp extends Application {
                     if (rs.next()) {
                         System.out.println("Login successful!");
                         // Open the Task Page
-                        TaskPage taskPage = new TaskPage();
-                        taskPage.show(primaryStage);
+                        TaskPage taskPage = new TaskPage(username);
+                        Stage taskStage = new Stage();
+                        taskPage.show(taskStage);
+                        loginStage.close(); // Close the login stage
                     } else {
                         System.out.println("Invalid username or password.");
                     }
