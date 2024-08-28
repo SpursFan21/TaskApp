@@ -21,7 +21,7 @@ TaskApp is a simple JavaFX desktop application that allows users to register, lo
 
 - JDK 17
 - Maven
-- PostgreSQL (configured with a database named `maventaskapp`, username `postgres`, and password `postgres`)
+- PostgreSQL
 
 ### Installation
 
