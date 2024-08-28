@@ -44,13 +44,13 @@ public class MainApp extends Application {
 
     private void handleLogin(String username, String password, Stage loginStage) {
         try (Connection conn = DatabaseUtils.getConnection()) {
-            String query = "SELECT * FROM users WHERE username = ?";
+            String query = "SELECT password FROM users WHERE username = ?";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
-                        String hashedPassword = rs.getString("password");
-                        if (BCrypt.checkpw(password, hashedPassword)) {
+                        String storedHash = rs.getString("password");
+                        if (BCrypt.checkpw(password, storedHash)) {
                             System.out.println("Login successful!");
                             // Open the Task Page
                             TaskPage taskPage = new TaskPage(username);
@@ -69,15 +69,15 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+    
 
     private void handleRegistration(String username, String password) {
         try (Connection conn = DatabaseUtils.getConnection()) {
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             String query = "INSERT INTO users (username, password) VALUES (?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(query)) {
                 stmt.setString(1, username);
-                // Hash the password before storing it
-                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-                stmt.setString(2, hashedPassword);
+                stmt.setString(2, hashedPassword); // Store hashed password
                 int rowsAffected = stmt.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Registration successful!");
@@ -89,6 +89,7 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+    
 
     public static void main(String[] args) {
         launch(args);

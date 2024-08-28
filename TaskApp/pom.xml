@@ -41,7 +41,7 @@
             <artifactId>postgresql</artifactId>
             <version>42.6.0</version>
         </dependency>
-        <!--Password Hashing-->
+        <!--Mindrot for Password Hashing-->
         <dependency>
           <groupId>org.mindrot</groupId>
           <artifactId>jbcrypt</artifactId>
