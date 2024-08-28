@@ -13,6 +13,7 @@ import java.sql.SQLException;
 public class TaskPage {
 
     private String username; // Username of the logged-in user
+    private ListView<TaskItem> taskListView;
 
     public TaskPage(String username) {
         this.username = username;
@@ -31,12 +32,12 @@ public class TaskPage {
 
         Button addButton = new Button("Add Task");
         Button removeButton = new Button("Remove Task");
-        Button updateButton = new Button("Update Task");
 
-        ListView<String> taskListView = new ListView<>();
+        taskListView = new ListView<>();
+        taskListView.setCellFactory(param -> new TaskCell(taskListView));
 
         // Load tasks from the database
-        loadTasks(taskListView);
+        loadTasks();
 
         // Add functionality to buttons
         addButton.setOnAction(e -> {
@@ -46,29 +47,20 @@ public class TaskPage {
                 addTask(task, status);
                 taskField.clear();
                 statusComboBox.setValue("Not Started");
-                loadTasks(taskListView); // Refresh task list
+                loadTasks(); // Refresh task list
             }
         });
 
         removeButton.setOnAction(e -> {
-            String selectedTask = taskListView.getSelectionModel().getSelectedItem();
-            if (selectedTask != null) {
-                removeTask(selectedTask);
-                loadTasks(taskListView); // Refresh task list
-            }
-        });
-
-        updateButton.setOnAction(e -> {
-            String selectedTask = taskListView.getSelectionModel().getSelectedItem();
-            String newStatus = statusComboBox.getValue();
-            if (selectedTask != null && newStatus != null) {
-                updateTaskStatus(selectedTask, newStatus);
-                loadTasks(taskListView); // Refresh task list
+            TaskItem selectedItem = taskListView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                removeTask(selectedItem.getTask());
+                loadTasks(); // Refresh task list
             }
         });
 
         // Layout
-        VBox layout = new VBox(10, taskField, statusComboBox, addButton, removeButton, updateButton, taskListView);
+        VBox layout = new VBox(10, taskField, statusComboBox, addButton, removeButton, taskListView);
         layout.setStyle("-fx-padding: 20;");
 
         // Scene and Stage
@@ -77,7 +69,7 @@ public class TaskPage {
         primaryStage.show();
     }
 
-    private void loadTasks(ListView<String> taskListView) {
+    private void loadTasks() {
         taskListView.getItems().clear();
         try (Connection conn = DatabaseUtils.getConnection()) {
             String query = "SELECT task, status FROM tasks WHERE username = ?";
@@ -90,7 +82,7 @@ public class TaskPage {
                         if (status == null) {
                             status = "Unknown"; // Default status if null
                         }
-                        taskListView.getItems().add(task + " (" + status + ")");
+                        taskListView.getItems().add(new TaskItem(task, status));
                     }
                 }
             }
@@ -98,7 +90,6 @@ public class TaskPage {
             e.printStackTrace();
         }
     }
-    
 
     private void addTask(String task, String status) {
         try (Connection conn = DatabaseUtils.getConnection()) {
@@ -138,6 +129,67 @@ public class TaskPage {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private class TaskCell extends ListCell<TaskItem> {
+        private final Button statusButton = new Button("Status");
+        private final ListView<TaskItem> listView;
+
+        public TaskCell(ListView<TaskItem> listView) {
+            this.listView = listView;
+            statusButton.setOnAction(e -> {
+                TaskItem taskItem = getItem();
+                if (taskItem != null) {
+                    // Create a context menu for status selection
+                    ContextMenu contextMenu = new ContextMenu();
+                    MenuItem notStarted = new MenuItem("Not Started");
+                    MenuItem inProgress = new MenuItem("In Progress");
+                    MenuItem complete = new MenuItem("Complete");
+
+                    notStarted.setOnAction(ev -> updateStatus(taskItem, "Not Started"));
+                    inProgress.setOnAction(ev -> updateStatus(taskItem, "In Progress"));
+                    complete.setOnAction(ev -> updateStatus(taskItem, "Complete"));
+
+                    contextMenu.getItems().addAll(notStarted, inProgress, complete);
+                    contextMenu.show(statusButton, getScene().getWindow().getX() + 100, getScene().getWindow().getY() + 100);
+                }
+            });
+        }
+
+        @Override
+        protected void updateItem(TaskItem item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setText(null);
+                setGraphic(null);
+            } else {
+                setText(item.getTask() + " (" + item.getStatus() + ")");
+                setGraphic(statusButton);
+            }
+        }
+
+        private void updateStatus(TaskItem taskItem, String status) {
+            updateTaskStatus(taskItem.getTask(), status);
+            loadTasks(); // Refresh task list
+        }
+    }
+
+    private static class TaskItem {
+        private final String task;
+        private final String status;
+
+        public TaskItem(String task, String status) {
+            this.task = task;
+            this.status = status;
+        }
+
+        public String getTask() {
+            return task;
+        }
+
+        public String getStatus() {
+            return status;
         }
     }
 }
