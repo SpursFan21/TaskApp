@@ -41,11 +41,22 @@ TaskApp is a simple JavaFX desktop application that allows users to register, lo
     CREATE DATABASE maventaskapp;
     \c maventaskapp;
     
+    -- Table for storing user information
     CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(50) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL
     );
+    
+    -- Table for storing tasks associated with users
+    CREATE TABLE tasks (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) NOT NULL,
+        task VARCHAR(255) NOT NULL,
+        status VARCHAR(50),
+        FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
+    );
+
     ```
 
 3. Build the project with Maven:
