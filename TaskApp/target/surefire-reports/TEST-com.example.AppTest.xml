@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.AppTest" time="0.047" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.example.AppTest" time="0.04" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="NZ"/>
     <property name="sun.boot.library.path" value="C:\Users\BarraKudha\AppData\Local\Programs\Eclipse Adoptium\jdk-17.0.9.9-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\BarraKudha\AppData\Local\Temp\surefire10884661872191517064\surefirebooter-20240829195535105_3.jar C:\Users\BarraKudha\AppData\Local\Temp\surefire10884661872191517064 2024-08-29T19-55-34_843-jvmRun1 surefire-20240829195535105_1tmp surefire_0-20240829195535105_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\BarraKudha\AppData\Local\Temp\surefire14482292008552318912\surefirebooter-20240829213052260_3.jar C:\Users\BarraKudha\AppData\Local\Temp\surefire14482292008552318912 2024-08-29T21-30-52_064-jvmRun1 surefire-20240829213052260_1tmp surefire_0-20240829213052260_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\BarraKudha\Desktop\Java\TaskApp\TaskApp\target\test-classes;C:\Users\BarraKudha\Desktop\Java\TaskApp\TaskApp\target\classes;C:\Users\BarraKudha\.m2\repository\org\openjfx\javafx-controls\17.0.2\javafx-controls-17.0.2.jar;C:\Users\BarraKudha\.m2\repository\org\openjfx\javafx-controls\17.0.2\javafx-controls-17.0.2-win.jar;C:\Users\BarraKudha\.m2\repository\org\openjfx\javafx-fxml\17.0.2\javafx-fxml-17.0.2.jar;C:\Users\BarraKudha\.m2\repository\org\openjfx\javafx-fxml\17.0.2\javafx-fxml-17.0.2-win.jar;C:\Users\BarraKudha\.m2\repository\org\openjfx\javafx-graphics\17.0.2\javafx-graphics-17.0.2.jar;C:\Users\BarraKudha\.m2\repository\org\openjfx\javafx-graphics\17.0.2\javafx-graphics-17.0.2-win.jar;C:\Users\BarraKudha\.m2\repository\org\openjfx\javafx-base\17.0.2\javafx-base-17.0.2.jar;C:\Users\BarraKudha\.m2\repository\org\openjfx\javafx-base\17.0.2\javafx-base-17.0.2-win.jar;C:\Users\BarraKudha\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\BarraKudha\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\BarraKudha\.m2\repository\org\postgresql\postgresql\42.6.0\postgresql-42.6.0.jar;C:\Users\BarraKudha\.m2\repository\org\checkerframework\checker-qual\3.31.0\checker-qual-3.31.0.jar;C:\Users\BarraKudha\.m2\repository\org\mindrot\jbcrypt\0.4\jbcrypt-0.4.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\BarraKudha\AppData\Local\Temp\surefire10884661872191517064\surefirebooter-20240829195535105_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\BarraKudha\AppData\Local\Temp\surefire14482292008552318912\surefirebooter-20240829213052260_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.9+9"/>
