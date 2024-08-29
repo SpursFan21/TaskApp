@@ -10,9 +10,12 @@ import java.io.IOException;
 public class TaskPage {
 
     private String username;
+    private MainApp mainApp;
 
     public TaskPage(String username) {
         this.username = username;
+        this.mainApp = mainApp;
+
     }
 
     public void show(Stage primaryStage) {
@@ -26,6 +29,10 @@ public class TaskPage {
             primaryStage.setTitle("Task Page");
             Scene scene = new Scene(layout, 600, 400);
             primaryStage.setScene(scene);
+
+            // Load and apply CSS
+            scene.getStylesheets().add(MainApp.class.getResource("/com/example/styles.css").toExternalForm());
+
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="layout" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.TaskPageController"
-      spacing="10" alignment="CENTER" stylesheets="@styles.css">
-    
-    <Button fx:id="logOutButton" text="Log Out"/>
-    <TextField fx:id="taskField" promptText="Enter a new task"/>
-    
-    <ComboBox fx:id="statusComboBox"/>
-    
-    <Button fx:id="addButton" text="Add Task"/>
-    <Button fx:id="removeButton" text="Remove Task"/>
-    <ListView fx:id="taskListView"/>
-    
+<VBox id="root" spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.TaskPageController" stylesheets="@styles.css">
+    <Label fx:id="welcomeLabel" text="Welcome!"/>
+    <TextField fx:id="taskField" promptText="Enter task" styleClass="text-field"/>
+    <ComboBox fx:id="statusComboBox" styleClass="combo-box"/>
+    <Button fx:id="addButton" text="Add Task" styleClass="button"/>
+    <Button fx:id="removeButton" text="Remove Task" styleClass="button"/>
+    <ListView fx:id="taskListView" styleClass="list-view"/>
+    <Button fx:id="logOutButton" text="Log Out" styleClass="button"/>
 </VBox>

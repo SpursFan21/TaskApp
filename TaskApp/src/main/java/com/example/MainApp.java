@@ -31,8 +31,6 @@ public class MainApp extends Application {
 
             // Load and apply CSS
             scene.getStylesheets().add(MainApp.class.getResource("/com/example/styles.css").toExternalForm());
-            // Corrected path for the CSS file
-
 
             primaryStage.show();
         } catch (IOException e) {
@@ -46,7 +44,7 @@ public class MainApp extends Application {
             loader.setLocation(MainApp.class.getResource("/com/example/TaskPage.fxml"));
             VBox taskPage = (VBox) loader.load();
     
-            // Set the controller (if needed)
+            // Set the controller
             TaskPageController controller = loader.getController();
             controller.setMainApp(this);
     

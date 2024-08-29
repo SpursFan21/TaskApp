@@ -1,6 +1,8 @@
 package com.example;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -27,12 +29,15 @@ public class TaskPageController {
     private Button logOutButton;
     @FXML
     private ListView<TaskItem> taskListView;
+    @FXML
+    private Label welcomeLabel;
 
     private String username;
-    private MainApp mainApp;
+    private MainApp mainApp; // Reference to MainApp
 
     public void setUsername(String username) {
         this.username = username;
+        welcomeLabel.setText("Welcome, " + username);
         loadTasks();
     }
 
@@ -42,7 +47,7 @@ public class TaskPageController {
 
     @FXML
     public void initialize() {
-        statusComboBox.getItems().addAll("Not Started", "In Progress", "Complete");
+        statusComboBox.setItems(FXCollections.observableArrayList("Not Started", "In Progress", "Complete"));
         statusComboBox.setValue("Not Started");
 
         addButton.setOnAction(e -> addTask());
@@ -58,11 +63,14 @@ public class TaskPageController {
                     setText(null);
                 } else {
                     setText(item.toString());
+                    // Add a button to update status
+                    Button statusButton = new Button("Update Status");
+                    statusButton.setOnAction(e -> updateTaskStatus(item.getTask(), statusComboBox.getValue()));
+                    setGraphic(statusButton);
                 }
             }
         });
     }
-
 
     private void loadTasks() {
         taskListView.getItems().clear();
@@ -130,7 +138,9 @@ public class TaskPageController {
         currentStage.close();
 
         // Redirect to MainApp page
-        mainApp.showMainPage();
+        if (mainApp != null) {
+            mainApp.showMainPage(); // Ensure this method exists in MainApp
+        }
     }
 
     private void updateTaskStatus(String task, String status) {
@@ -145,6 +155,7 @@ public class TaskPageController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        loadTasks(); // Refresh the task list to show the updated status
     }
 
     private class TaskItem {
