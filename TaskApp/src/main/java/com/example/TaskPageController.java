@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -31,9 +32,10 @@ public class TaskPageController {
     private ListView<TaskItem> taskListView;
     @FXML
     private Label welcomeLabel;
+    @FXML
 
     private String username;
-    private MainApp mainApp; // Reference to MainApp
+    private MainApp mainApp;
 
     public void setUsername(String username) {
         this.username = username;

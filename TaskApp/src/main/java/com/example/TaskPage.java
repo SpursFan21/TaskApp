@@ -10,11 +10,9 @@ import java.io.IOException;
 public class TaskPage {
 
     private String username;
-    private MainApp mainApp;
 
     public TaskPage(String username) {
         this.username = username;
-        this.mainApp = mainApp;
 
     }
 

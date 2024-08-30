@@ -9,4 +9,3 @@
     <Button fx:id="loginButton" text="Login" onAction="#handleLogin" />
     <Button fx:id="registerButton" text="Register" onAction="#handleRegistration" />
 </VBox>
-
