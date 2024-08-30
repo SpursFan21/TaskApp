@@ -7,8 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -21,8 +21,6 @@ public class TaskPageController {
     @FXML
     private TextField taskField;
     @FXML
-    private ComboBox<String> statusComboBox;
-    @FXML
     private Button addButton;
     @FXML
     private Button removeButton;
@@ -33,6 +31,7 @@ public class TaskPageController {
     @FXML
     private Label welcomeLabel;
     @FXML
+    private ComboBox<String> statusComboBox;
 
     private String username;
     private MainApp mainApp;
@@ -49,8 +48,9 @@ public class TaskPageController {
 
     @FXML
     public void initialize() {
+        // Initialize statusComboBox with options
         statusComboBox.setItems(FXCollections.observableArrayList("Not Started", "In Progress", "Complete"));
-        statusComboBox.setValue("Not Started");
+        statusComboBox.setValue("Not Started"); // Set default value
 
         addButton.setOnAction(e -> addTask());
         removeButton.setOnAction(e -> removeTask());
@@ -63,12 +63,29 @@ public class TaskPageController {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
+                    setGraphic(null);
                 } else {
-                    setText(item.toString());
-                    // Add a button to update status
+                    // Create a container to hold both text and buttons
+                    HBox container = new HBox(10);
+                    Label taskLabel = new Label(item.toString());
+
+                    // Create a ComboBox for status selection
+                    ComboBox<String> statusComboBox = new ComboBox<>(FXCollections.observableArrayList("Not Started", "In Progress", "Complete"));
+                    statusComboBox.setValue(item.getStatus());
+
+                    // Create a button for updating status
                     Button statusButton = new Button("Update Status");
-                    statusButton.setOnAction(e -> updateTaskStatus(item.getTask(), statusComboBox.getValue()));
-                    setGraphic(statusButton);
+                    statusButton.setOnAction(e -> {
+                        String newStatus = statusComboBox.getValue();
+                        if (newStatus != null) {
+                            updateTaskStatus(item.getTask(), newStatus);
+                        } else {
+                            System.err.println("StatusComboBox value is null");
+                        }
+                    });
+
+                    container.getChildren().addAll(taskLabel, statusComboBox, statusButton);
+                    setGraphic(container);
                 }
             }
         });
@@ -98,8 +115,9 @@ public class TaskPageController {
 
     private void addTask() {
         String task = taskField.getText();
-        String status = statusComboBox.getValue();
-        if (!task.isEmpty() && status != null) {
+        String status = statusComboBox.getValue(); // Get status from ComboBox
+    
+        if (!task.isEmpty()) {
             try (Connection conn = DatabaseUtils.getConnection()) {
                 String query = "INSERT INTO tasks (username, task, status) VALUES (?, ?, ?)";
                 try (PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -112,10 +130,11 @@ public class TaskPageController {
                 e.printStackTrace();
             }
             taskField.clear();
-            statusComboBox.setValue("Not Started");
+            statusComboBox.setValue("Not Started"); // Reset to default value
             loadTasks();
         }
     }
+    
 
     private void removeTask() {
         TaskItem selectedItem = taskListView.getSelectionModel().getSelectedItem();
