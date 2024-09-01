@@ -10,17 +10,18 @@ TaskApp is a simple JavaFX desktop application that allows users to register, lo
 
 ## Technologies Used
 
-- Java 17
+- Java 21
 - JavaFX 17
 - Maven
 - PostgreSQL
 - CSS
+- jBCrypt
 
 ## Getting Started
 
 ### Prerequisites
 
-- JDK 17
+- JDK 21
 - Maven
 - PostgreSQL
 
