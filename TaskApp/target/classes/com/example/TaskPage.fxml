@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="root" spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.TaskPageController" stylesheets="@styles.css">
+<VBox id="root" spacing="10" alignment="CENTER" prefWidth="1000" prefHeight="800" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.TaskPageController" stylesheets="@styles.css">
     <Label fx:id="welcomeLabel" text="Welcome!"/>
     <TextField fx:id="taskField" promptText="Enter task" styleClass="text-field"/>
     <ComboBox fx:id="statusComboBox" styleClass="combo-box"/>

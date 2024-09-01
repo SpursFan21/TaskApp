@@ -46,16 +46,17 @@ public class TaskPageController {
         this.mainApp = mainApp;
     }
 
+
     @FXML
     public void initialize() {
         // Initialize statusComboBox with options
         statusComboBox.setItems(FXCollections.observableArrayList("Not Started", "In Progress", "Complete"));
-        statusComboBox.setValue("Not Started"); // Set default value
-
+        statusComboBox.setValue("Not Started");
+    
         addButton.setOnAction(e -> addTask());
         removeButton.setOnAction(e -> removeTask());
         logOutButton.setOnAction(e -> logOut());
-
+    
         // Customize ListView cell factory
         taskListView.setCellFactory(lv -> new ListCell<TaskItem>() {
             @Override
@@ -65,26 +66,29 @@ public class TaskPageController {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    // Create a container to hold both text and buttons
                     HBox container = new HBox(10);
-                    Label taskLabel = new Label(item.toString());
-
-                    // Create a ComboBox for status selection
+                    
+                    Button statusButton = new Button("Update Status");
+                    
                     ComboBox<String> statusComboBox = new ComboBox<>(FXCollections.observableArrayList("Not Started", "In Progress", "Complete"));
                     statusComboBox.setValue(item.getStatus());
 
-                    // Create a button for updating status
-                    Button statusButton = new Button("Update Status");
+                    Label statusLabel = new Label(item.getStatus());
+    
+                    Label taskLabel = new Label(item.getTask());
+    
                     statusButton.setOnAction(e -> {
                         String newStatus = statusComboBox.getValue();
                         if (newStatus != null) {
                             updateTaskStatus(item.getTask(), newStatus);
+                            statusLabel.setText(newStatus);
                         } else {
                             System.err.println("StatusComboBox value is null");
                         }
                     });
-
-                    container.getChildren().addAll(taskLabel, statusComboBox, statusButton);
+    
+                    container.getChildren().addAll(statusButton, statusComboBox, statusLabel, taskLabel);
+                    
                     setGraphic(container);
                 }
             }

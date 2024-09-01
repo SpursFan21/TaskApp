@@ -25,7 +25,7 @@ public class TaskPage {
             controller.setUsername(username);
 
             primaryStage.setTitle("Task Page");
-            Scene scene = new Scene(layout, 600, 400);
+            Scene scene = new Scene(layout);
             primaryStage.setScene(scene);
 
             // Load and apply CSS
